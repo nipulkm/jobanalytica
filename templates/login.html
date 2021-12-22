@@ -1,0 +1,31 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container">
+		<form class="" method="post" id="loginForm">
+			{% csrf_token %}
+			<div class="">
+				<label for="uname"><strong>Username</strong></label>
+				{{loginForm.username}}
+			</div>
+			<div class="">
+				<label for="psw"><strong>Password</strong></label>
+				{{loginForm.password}}
+			</div>
+			<div class="">
+				<button type="submit">Login</button>
+			</div>
+		</form>
+	</div>
+{% endblock body %}

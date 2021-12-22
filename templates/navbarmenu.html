@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Job Analytica</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/navbarmenu.css' %}">
+</head>
+<body>
+<div class="">
+	<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+	  <a class="navbar-brand" href="#">Job Analytica</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+	    <ul class="navbar-nav">
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">Home</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">Company</a>
+		      </li>
+		    <li class="nav-item">
+				  <a class="nav-link" href="#">Applicant</a>
+		    </li>
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+		        Sign Up
+		      </a>
+		      <div class="dropdown-menu">
+		        <a class="dropdown-item" href="#">Applicant</a>
+		        <a class="dropdown-item" href="#">Company</a>
+		      </div>
+	    	</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+				  Logged In
+				</a>
+				<div class="dropdown-menu">
+				  <a class="dropdown-item" href="#">Logout</a>
+				</div>
+	  		</li>
+	    </ul>
+	  </div>
+	</nav>
+	<br>
+</div>
+</body>
+</html>
