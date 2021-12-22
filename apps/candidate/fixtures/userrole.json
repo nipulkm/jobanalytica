@@ -1,0 +1,26 @@
+[
+	{
+		"model": "candidate.userrole",
+		"pk": 1,
+		"fields": {
+			"roleName": "Company",
+			"roleCode": "company"
+		}
+	},
+	{
+		"model": "candidate.userrole",
+		"pk": 2,
+		"fields": {
+			"roleName": "Candidate",
+			"roleCode": "candidate"
+		}
+	},
+	{
+		"model": "candidate.userrole",
+		"pk": 3,
+		"fields": {
+			"roleName": "Admin",
+			"roleCode": "admin"
+		}
+	}
+]

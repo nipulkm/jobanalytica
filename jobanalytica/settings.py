@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'apps.jobpost',
     'apps.resume',
     'apps.technology',
-    'apps.user',
 ]
 
 MIDDLEWARE = [
