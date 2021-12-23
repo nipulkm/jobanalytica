@@ -6,7 +6,7 @@ class CandidateRegistrationForm(forms.Form):
 	birthdate = forms.DateField()
 	phone = forms.CharField(max_length=const.PHONE_NUMBER_MAX_LENGTH)
 	address = forms.CharField(required=False)
-	username = forms.CharField(max_length=const.USERNAME_MAX_LENGTH)
+	username = forms.EmailField(max_length=const.USERNAME_MAX_LENGTH)
 	password = forms.CharField(
 		max_length=const.PASSWORD_MAX_LENGTH,
 		min_length=const.PASSWORD_MIN_LENGTH,
@@ -16,7 +16,7 @@ class CandidateRegistrationForm(forms.Form):
 	birthdate.widget.attrs.update({'class': 'fas fa-calendar input-prefix', 'type': 'date'})
 
 class CandidateLoginForm(forms.Form):
-	username = forms.CharField(max_length=const.USERNAME_MAX_LENGTH)
+	username = forms.EmailField(max_length=const.USERNAME_MAX_LENGTH)
 	password = forms.CharField(
 		max_length=const.PASSWORD_MAX_LENGTH,
 		min_length=const.PASSWORD_MIN_LENGTH,

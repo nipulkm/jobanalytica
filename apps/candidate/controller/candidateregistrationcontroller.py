@@ -4,13 +4,10 @@ from library.validationresponse import ValidationResponse
 from apps.candidate.models import UserRole, Candidate
 
 def createRegistration(formData):
-	print("VALID")
 	username=formData['username']
 	password=formData['password']
 	user = User.objects.create_user(username=username, password=password)
-	print("VALID2")
 	userRole = UserRole.objects.get(roleName='Candidate')
-	print("VALID3")
 	candidate = Candidate(
 		name=formData['name'],
 		birthdate=formData['birthdate'],
@@ -20,7 +17,6 @@ def createRegistration(formData):
 		userRole=userRole
 	)
 	candidate.save()
-	print("VALID4")
 	return ValidationResponse(True, True, None)
 
 def candidateRegistrationFormValidation(request):
