@@ -1,0 +1,9 @@
+#candidateRegistrationForm {
+	text-align: center;
+}
+#errorContainer {
+	text-align: center;
+}
+#message {
+	color: red;
+}
