@@ -14,11 +14,11 @@ class Candidate(models.Model):
 	id = models.BigAutoField(primary_key=True)
 	profileId = \
 		models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-	name = models.CharField(max_length=const.CANDIDATE_NAME_MAX_LENGTH)
+	name = models.CharField(max_length=const.COMPANY_NAME_MAX_LENGTH)
 	birthdate = models.DateField()
 	phone = models.CharField(max_length=const.PHONE_NUMBER_MAX_LENGTH)
 	address = models.CharField(
-		max_length=const.ADDRESS_MAX_LENGTH,blank=True, null=True
+		max_length=const.ADDRESS_MAX_LENGTH, blank=True, null=True
 	)
 	user = models.OneToOneField(User, on_delete=models.PROTECT)
 	userRole = models.ForeignKey(UserRole, on_delete=models.PROTECT)
