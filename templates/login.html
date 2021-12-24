@@ -17,14 +17,19 @@
 			{% csrf_token %}
 			<div class="">
 				<label for="uname"><strong>Username</strong></label>
-				{{candidateLoginForm.username}}
+				{{loginForm.username}}
 			</div>
 			<div class="">
 				<label for="psw"><strong>Password</strong></label>
-				{{candidateLoginForm.password}}
+				{{loginForm.password}}
 			</div>
 			<div class="">
-				<button type="submit">Login</button>
+				<button class="btn btn-info" type="submit">Login</button>
+				{% if userRole == "Candidate" %}
+				<a class="btn btn-primary" href="/candidate/registration">Register</a>
+				{% elif userRole == "Company" %}
+				<a class="btn btn-primary" href="/company/registration">Register</a>
+				{% endif %}
 			</div>
 		</form>
 	</div>
