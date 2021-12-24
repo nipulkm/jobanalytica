@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from library import errormessage
-from library import constants as const
+from library import constants as const, decorator
+from apps.candidate.models import UserRole
 from apps.company.forms import CompanyRegistrationForm
 from apps.candidate.forms import LoginForm
 from apps.company.controller import companyregistrationcontroller, companylogincontroller
@@ -28,6 +30,7 @@ def companyRegistration(request):
 			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
 			return render(request, 'company/companyRegistration.html', context)
 
+@decorator.unauthenticated_user
 def companyLogin(request):
 	form = LoginForm()
 	context = {
@@ -44,13 +47,26 @@ def companyLogin(request):
 		try:
 			validation = companylogincontroller.loginFormValidation(request)
 			if validation.isValid == True:
-				context.update({"isLogged": True})
-				return render(request, 'basetemplate.html', context)
+				return redirect('/company/dashboard/')
 			return render(request, 'login.html', validation.response)
 		except:
 			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
 			return render(request, 'login.html', context)
 
+# @rolePermission([UserRole.objects.get(roleName='Company')])
+#@decorator.unauthenticated_user
+@login_required(login_url="/company/login/")
+@decorator.allowed_users(allowed_roles=['Company'])
+def companyDashboard(request):
+	if request.method == 'GET':
+		context = {
+			"isLogged": True,
+			"userRole": "Company"
+		}
+		return render(request, 'company/companyDashboard.html', context)
+
+@login_required(login_url="/company/login/")
+@decorator.allowed_users(allowed_roles=['Company'])
 def companyLogout(request):
 	logout(request)
 	return redirect('/home')

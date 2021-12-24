@@ -17,14 +17,22 @@
 	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
 	    <ul class="navbar-nav">
 		    <li class="nav-item">
-		        <a class="nav-link" href="#">Home</a>
+		        <a class="nav-link" href="/home/">Home</a>
 		    </li>
-		    <li class="nav-item">
-		        <a class="nav-link" href="#">Company</a>
+			<li class="nav-item">
+				{% if userRole == "Company" %}
+		        <a class="nav-link" href="/company/dashboard/">Dashboard</a>
+				{% else %}
+		        <a class="nav-link" href="/candidate/dashboard/">Dashboard</a>
+				{% endif %}
 		      </li>
 		    <li class="nav-item">
-				  <a class="nav-link" href="#">Applicant</a>
-		    </li>
+				{% if userRole == "Company" %}
+		        <a class="nav-link" href="/company/profile/">Profile</a>
+				{% else %}
+		        <a class="nav-link" href="/candidate/profile/">Profile</a>
+				{% endif %}
+		      </li>
 			{% if isLogged %}
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="login/" id="navbardrop" data-toggle="dropdown">

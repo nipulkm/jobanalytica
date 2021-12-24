@@ -1,0 +1,51 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/company/companyRegistration.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container">
+		<form class="" method="post" id="companyRegistrationForm">
+			{% csrf_token %}
+			<div class="">
+				<label for="name"><strong>Name</strong></label>
+				{{companyRegistrationForm.name}}
+			</div>
+			<div class="">
+				<label for="type"><strong>Type</strong></label>
+				{{companyRegistrationForm.type}}
+			</div>
+			<div class="">
+				<label for="employee"><strong>Employee</strong></label>
+				{{companyRegistrationForm.phone}}
+			</div>
+			<div class="">
+				<label for="address"><strong>Address</strong></label>
+				{{companyRegistrationForm.address}}
+			</div>
+			<div class="">
+				<label for="phone"><strong>Phone</strong></label>
+				{{companyRegistrationForm.phone}}
+			</div>
+			<div class="">
+				<label for="uname"><strong>Username</strong></label>
+				{{companyRegistrationForm.username}}
+			</div>
+			<div class="">
+				<label for="psw"><strong>Password</strong></label>
+				{{companyRegistrationForm.password}}
+			</div>
+			<!-- <div class="">
+				<button type="submit" class="btn btn-info">Register</button>
+			</div> -->
+		</form>
+	</div>
+{% endblock body %}
