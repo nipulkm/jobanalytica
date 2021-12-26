@@ -8,7 +8,7 @@ from apps.candidate.forms import CandidateRegistrationForm, LoginForm
 from apps.candidate.controller import candidateregistrationcontroller, candidatelogincontroller
 
 def home(request):
-	if request.user.is_authenticated:
+	if request.user.groups.exists():
 		group = request.user.groups.all()[0].name
 		context = {"isLogged": True, "userRole": group}
 	else:
@@ -55,7 +55,10 @@ def candidateLogin(request):
 			if validation.isValid == True:
 				context.update({"isLogged": True})
 				return render(request, 'basetemplate.html', context)
-			return render(request, 'login.html', validation.response)
+			messages.error(
+				request, errormessage.INVALID_USERNAME_OR_PASSWORD_ERROR
+			)
+			return render(request, 'login.html', {const.LOGIN_FORM_PROPERTY : validation.response})
 		except:
 			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
 			return render(request, 'login.html', context)

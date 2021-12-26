@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from library import errormessage
 from library import constants as const, decorator
 from apps.candidate.models import UserRole
-from apps.company.forms import CompanyRegistrationForm
+from apps.company.forms import CompanyRegistrationForm, JobPostForm
 from apps.candidate.forms import LoginForm
-from apps.company.controller import companyregistrationcontroller, companylogincontroller
+from apps.company.controller import companyregistrationcontroller, \
+	companylogincontroller, jobpostcontroller, companydashboardcontroller
 
 def companyRegistration(request):
 	if request.method == 'GET':
@@ -21,7 +22,7 @@ def companyRegistration(request):
 	if request.method == 'POST':
 		try:
 			validation = companyregistrationcontroller.companyRegistrationFormValidation(request)
-			if validation.isValid == True:
+			if validation.isValid:
 				return redirect('/company/login/')
 			return render(request, 'company/companyRegistration.html', validation.response)
 		except:
@@ -46,9 +47,12 @@ def companyLogin(request):
 	if request.method == 'POST':
 		try:
 			validation = companylogincontroller.loginFormValidation(request)
-			if validation.isValid == True:
+			if validation.isValid:
 				return redirect('/company/dashboard/')
-			return render(request, 'login.html', validation.response)
+			messages.error(
+				request, errormessage.INVALID_USERNAME_OR_PASSWORD_ERROR
+			)
+			return render(request, 'login.html', {const.LOGIN_FORM : validation.response})
 		except:
 			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
 			return render(request, 'login.html', context)
@@ -58,12 +62,45 @@ def companyLogin(request):
 @login_required(login_url="/company/login/")
 @decorator.allowed_users(allowed_roles=['Company'])
 def companyDashboard(request):
+	form = JobPostForm()
 	if request.method == 'GET':
 		context = {
 			"isLogged": True,
+			"userRole": "Company",
+			"jobPostForm": form
+		}
+		try:
+			validation = companydashboardcontroller.getJobPost(request)
+			if validation.isValid:
+				context.update(validation.response)
+				return render(request, 'company/companyDashboard.html', context)
+			messages.error(request, "Failed to load job posts!")
+			return render(request, 'company/companyDashboard.html', context)
+		except:
+			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+			return render(request, 'company/companyDashboard.html', context)
+
+@login_required(login_url="/company/login/")
+@decorator.allowed_users(allowed_roles=['Company'])
+def jobPostCreate(request):
+	if request.method == 'POST':
+		form = JobPostForm()
+		context = {
+			"jobPostForm": form,
 			"userRole": "Company"
 		}
-		return render(request, 'company/companyDashboard.html', context)
+		try:
+			validation = jobpostcontroller.saveJobPost(request)
+			print(validation.isValid)
+			if validation.isValid:
+				context.update(validation.response)
+				print("DONE")
+				return render(request, 'company/companyDashboard.html', context)
+			messages.error(request, 'Job Post isnot Created!')
+			return render(request, 'company/companyDashboard.html', context)
+		except:
+			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+			return render(request, 'company/companyDashboard.html', context)
 
 @login_required(login_url="/company/login/")
 @decorator.allowed_users(allowed_roles=['Company'])

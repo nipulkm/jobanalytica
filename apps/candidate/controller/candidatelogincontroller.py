@@ -19,4 +19,4 @@ def loginFormValidation(request):
 	if user.isValid:
 		login(request, user.response)
 		return ValidationResponse(True, None, None)
-	return ValidationResponse(False, form.response, None)
+	return ValidationResponse(False, user.response, None)

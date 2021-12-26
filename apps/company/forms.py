@@ -13,3 +13,13 @@ class CompanyRegistrationForm(forms.Form):
 		min_length=const.PASSWORD_MIN_LENGTH,
 		widget=forms.PasswordInput
 	)
+
+class JobPostForm(forms.Form):
+	position = forms.CharField(max_length=const.POSITION_MAX_LENGTH)
+	description = forms.CharField(widget=forms.Textarea)
+	experience = forms.IntegerField(required=False)
+	salary = forms.IntegerField(required=False)
+	deadline = forms.DateField(required=False)
+	# description.widget.attrs.update({
+	# 	'id': 'description'
+	# })
