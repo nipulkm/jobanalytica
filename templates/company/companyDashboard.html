@@ -1,0 +1,77 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/company/companydashboard.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container" id="jobCreateFormContainer">
+		<br>
+		<form class="" action="{% url 'jobPostCreate' %}" method="post" id="jobPostForm">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="position"><strong>Position</strong></label>
+				{{jobPostForm.position}}
+			</div>
+			<div class="form-group">
+				<label for="description"><strong>Description</strong></label>
+				<br>
+				{{jobPostForm.description}}
+			</div>
+			<div class="form-group">
+				<label for="experience"><strong>Experience</strong></label>
+				{{jobPostForm.experience}}
+			</div>
+			<div class="form-group">
+				<label for="salary"><strong>Salary</strong></label>
+				{{jobPostForm.salary}}
+			</div>
+			<div class="form-group">
+				<label for="deadline"><strong>Deadline</strong></label>
+				<input
+					id = "dateField"
+					name="deadline"
+					type="date"
+					required
+				>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-info">Create</button>
+			</div>
+		</form>
+		<br>
+	</div>
+	<br>
+	<div class="container" id="jobPostContainer">
+		<table class="table table">
+			<tr>
+				<th>JobId</th>
+				<th>Position</th>
+				<th>Description</th>
+				<th>Experience</th>
+				<th>Salary</th>
+				<th>Deadline</th>
+				<th>Applied</th>
+			</tr>
+			{% for jobPost in jobPosts %}
+			<tr>
+				<td>{{jobPost.id}}</td>
+				<td>{{jobPost.position}}</td>
+				<td id="description">{{jobPost.description}}</td>
+				<td>{{jobPost.experience}}</td>
+				<td>{{jobPost.salary}}</td>
+				<td>{{jobPost.deadline}}</td>
+				<td><a href="#">{{jobPost.appliedNumber}}</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<br>
+{% endblock body %}

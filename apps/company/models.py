@@ -24,3 +24,19 @@ class Company(models.Model):
 
 	def __str__(self):
 		return str(self.id) + " - " + str(self.name)
+
+class JobPost(models.Model):
+	id = models.BigAutoField(primary_key=True)
+	jobId = \
+		models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+	company = models.ForeignKey(Company, on_delete=models.PROTECT)
+	position = models.CharField(max_length=const.POSITION_MAX_LENGTH)
+	experience = models.IntegerField(blank=True, null=True)
+	salary = models.IntegerField(blank=True, null=True)
+	description = models.TextField()
+	deadline = models.DateField(blank=True, null=True)
+	appliedNumber = models.IntegerField(default=0)
+	isDeleted = models.BooleanField(default=False)
+
+	def __str__(self):
+		return str(self.id) + " - " + str(self.position)

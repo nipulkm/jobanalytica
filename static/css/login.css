@@ -4,3 +4,6 @@
 #errorContainer {
 	text-align: center;
 }
+#message {
+	color: red;
+}
