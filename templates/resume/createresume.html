@@ -1,0 +1,142 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/resume/createresume.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container" id="resumeContainer">
+		<form action="{% url 'createResume' %}" id="resumeForm" method="POST">
+			{% csrf_token %}
+			<br>
+			<p><strong>Create Resume</strong></p>
+			<div class="form-group">
+				<button type="button" class="btn btn-success">
+					<a href="/resume/view/">View Resume</a>
+				</button>
+			</div>
+			<br>
+			<div>
+				<lebel>Phone: </lebel>
+				{{resumeForm.phone}}
+			</div>
+			<br>
+			<div>
+				<lebel>Email: </lebel>
+				{{resumeForm.email}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Technology: </lebel>
+				{{resumeForm.technology1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Experience: </lebel>
+				{{resumeForm.experience1}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Technology: </lebel>
+				{{resumeForm.technology2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Experience: </lebel>
+				{{resumeForm.experience2}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Technology: </lebel>
+				{{resumeForm.technology3}}
+			</div>
+			<br>
+			<div>
+				<lebel>Experience: </lebel>
+				{{resumeForm.experience3}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Academy Type: </lebel>
+				{{resumeForm.academyType1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Subject: </lebel>
+				{{resumeForm.subject1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Institute: </lebel>
+				{{resumeForm.instituteName1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Passing Year: </lebel>
+				{{resumeForm.passingYear1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Result: </lebel>
+				{{resumeForm.result1}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Academy Type: </lebel>
+				{{resumeForm.academyType2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Subject: </lebel>
+				{{resumeForm.subject2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Institute Name: </lebel>
+				{{resumeForm.instituteName2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Passing Year: </lebel>
+				{{resumeForm.passingYear2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Result: </lebel>
+				{{resumeForm.result2}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Others Skill Description: </lebel>
+				{{resumeForm.skillDescription1}}
+			</div>
+			<br>
+			<div>
+				<lebel>Experience: </lebel>
+				{{resumeForm.skillExperience1}}
+			</div>
+			<br><br>
+			<div>
+				<lebel>Others Skill Description: </lebel>
+				{{resumeForm.skillDescription2}}
+			</div>
+			<br>
+			<div>
+				<lebel>Experience: </lebel>
+				{{resumeForm.skillExperience2}}
+			</div>
+			<br><br>
+			<div class="form-group">
+				<button type="submit" class="btn btn-info">Create</button>
+			</div>
+		</form>
+		<br>
+	</div>
+	<br>
+{% endblock body %}
