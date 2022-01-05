@@ -5,15 +5,27 @@ from django.contrib.auth.decorators import login_required
 from library import constants as const, decorator
 from library import errormessage
 from apps.candidate.forms import CandidateRegistrationForm, LoginForm
-from apps.candidate.controller import candidateregistrationcontroller, candidatelogincontroller
+from apps.candidate.controller import candidateregistrationcontroller, candidatelogincontroller, \
+	jobpostcontroller
 
 def home(request):
-	if request.user.groups.exists():
-		group = request.user.groups.all()[0].name
-		context = {"isLogged": True, "userRole": group}
-	else:
-		context = {"isLogged": False, "userRole": None}
-	return render(request, 'basetemplate.html', context)
+	if request.method == 'GET':
+		if request.user.groups.exists():
+			group = request.user.groups.all()[0].name
+			context = {"isLogged": True, "userRole": group}
+		else:
+			context = {"isLogged": False, "userRole": None}
+		try:
+			validation = jobpostcontroller.getjobpost(request)
+			print(validation)
+			if validation.isValid:
+				context.update(validation.response)
+				return render(request, 'candidate/candidatehomepage.html', context)
+			messages.error(request, 'Failed to fecth job post from DB!')
+			return render(request, 'login.html', context)
+		except:
+			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+			return render(request, 'login.html', context)
 
 def candidateRegistration(request):
 	if request.method == 'GET':

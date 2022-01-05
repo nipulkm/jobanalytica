@@ -1,0 +1,38 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/candidate/candidatehomepage.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container">
+		{% for jobPost in jobPosts %}
+		<div class="container" id="jobPost">
+			<div class="col">
+				<div class="row">
+					<div class="col">{{jobPost.position}}</div>
+					<div class="col">{{jobPost.company.name}}</div>
+					<div class="col"><a href="/apply/{{jobPost.jobId}}/">Apply</a></div>
+				</div>
+				<div class="row">
+					<div class="col">{{jobPost.description}}</div>
+				</div>
+				<div class="row">
+					<div class="col">{{jobPost.experience}}</div>
+					<div class="col">{{jobPost.salary}}</div>
+					<div class="col">{{jobPost.deadline}}</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		{% endfor %}
+	</div>
+	<br>
+{% endblock body %}
