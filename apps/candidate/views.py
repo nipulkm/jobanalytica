@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from library import constants as const, decorator
 from library import errormessage
+from apps.candidate.models import Candidate
+from apps.resume.models import Resume
+from apps.resume.controller import viewresume
 from apps.candidate.forms import CandidateRegistrationForm, LoginForm
 from apps.candidate.controller import candidateregistrationcontroller, candidatelogincontroller, \
 	jobpostcontroller
@@ -16,8 +19,7 @@ def home(request):
 		else:
 			context = {"isLogged": False, "userRole": None}
 		try:
-			validation = jobpostcontroller.getjobpost(request)
-			print(validation)
+			validation = jobpostcontroller.getJobPost(request)
 			if validation.isValid:
 				context.update(validation.response)
 				return render(request, 'candidate/candidatehomepage.html', context)
@@ -84,6 +86,34 @@ def candidateDashboard(request):
 			"userRole": "Candidate"
 		}
 		return render(request, 'candidate/candidateDashboard.html', context)
+
+@login_required(login_url="/candidate/login/")
+@decorator.allowed_users(allowed_roles=['Candidate'])
+def profile(request):
+	if request.method == 'GET':
+		context = {
+			"isLogged": True,
+			"userRole": "Candidate"
+		}
+		candidate = Candidate.objects.get(user=request.user)
+		if Resume.objects.filter(candidate=candidate).first():
+			try:
+				validation = viewresume.getResume(request)
+				if validation.isValid:
+					context.update({'isResume': True})
+					context.update(validation.response)
+					return render(request, 'candidate/candidateprofile.html', context)
+				messages.error(
+					request, 'Failed to fetch DB!'
+				)
+				return redirect('/home')
+			except:
+				messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+				return redirect('/home')
+		else:
+			candidate = list(Candidate.objects.get(candidate__user=request.user))
+			context.update({'isResume': False, 'candidate': candidate})
+			return render(request, 'candidate/profile.html', context)
 
 @login_required(login_url="/candidate/login/")
 @decorator.allowed_users(allowed_roles=['Candidate'])

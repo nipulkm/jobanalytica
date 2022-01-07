@@ -1,7 +1,7 @@
 from library.validationresponse import ValidationResponse
 from apps.company.models import JobPost
 
-def getjobpost(request):
+def getJobPost(request):
     jobPosts = list(JobPost.objects.all())
     response = {
         'jobPosts': jobPosts
