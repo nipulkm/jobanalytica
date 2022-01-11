@@ -32,7 +32,7 @@ def createResume(request):
 		try:
 			validation = createresume.saveResume(request)
 			if validation.isValid:
-				return render(request, 'resume/viewresume.html', validation.response)
+				return redirect('/candidate/profile/')
 			messages.error(
 				request, 'Invalid form data'
 			)

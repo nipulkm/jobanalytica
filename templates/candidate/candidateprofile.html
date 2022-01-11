@@ -26,28 +26,31 @@
             </button>
         </div>
         <br>
-        <p><strong>Resume</strong></p>
+        <p><strong>Profile</strong></p>
         <br>
         <div>
             <lebel>Name: </lebel>
-            {{resume.candidate.name}}
+            {{candidate.name}}
         </div>
         <br>
         <div>
             <lebel>Birthday: </lebel>
-            {{resume.candidate.birthdate}}
+            {{candidate.birthdate}}
         </div>
         <br><div>
             <lebel>Address: </lebel>
-            {{resume.candidate.address}}
+            {{candidate.address}}
         </div>
         <br>
         <div>
             <lebel>Phone: </lebel>
-            {{resume.candidate.phone}}
+            {{candidate.phone}}
         </div>
         <br><br>
         {% if isResume %}
+            <br>
+            <p><strong>Resume</strong></p>
+            <br>
             {% for technology in allTechnology %}
             <div>
                 <lebel>Technology: </lebel>

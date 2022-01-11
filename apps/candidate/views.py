@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from library import constants as const, decorator
 from library import errormessage
 from apps.candidate.models import Candidate
+from apps.company.models import CandidateJobPost
 from apps.resume.models import Resume
 from apps.resume.controller import viewresume
 from apps.candidate.forms import CandidateRegistrationForm, LoginForm
 from apps.candidate.controller import candidateregistrationcontroller, candidatelogincontroller, \
-	jobpostcontroller
+	jobpostcontroller, jobapplication, candidatedashboard
 
 def home(request):
 	if request.method == 'GET':
@@ -67,8 +68,7 @@ def candidateLogin(request):
 		try:
 			validation = candidatelogincontroller.loginFormValidation(request)
 			if validation.isValid == True:
-				context.update({"isLogged": True})
-				return render(request, 'basetemplate.html', context)
+				return redirect('/home')
 			messages.error(
 				request, errormessage.INVALID_USERNAME_OR_PASSWORD_ERROR
 			)
@@ -111,9 +111,55 @@ def profile(request):
 				messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
 				return redirect('/home')
 		else:
-			candidate = list(Candidate.objects.get(candidate__user=request.user))
+			candidate = Candidate.objects.get(user=request.user)
 			context.update({'isResume': False, 'candidate': candidate})
-			return render(request, 'candidate/profile.html', context)
+			return render(request, 'candidate/candidateprofile.html', context)
+
+login_required(login_url="/candidate/login/")
+@decorator.allowed_users(allowed_roles=['Candidate'])
+def applyJob(request, jobId):
+	if request.method == 'GET':
+		context = {
+			"isLogged": True,
+			"userRole": "Candidate"
+		}
+		try:
+			validation = jobapplication.apply(request, jobId)
+			if validation.isValid:
+				return redirect('/home')
+			messages.error(
+				request, 'Failed to apply!'
+			)
+			return redirect('/home')
+		except:
+			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+			return redirect('/home')
+
+def dashboard(request):
+	if request.method == 'GET':
+		candidate = Candidate.objects.get(user=request.user)
+		appliedJob = CandidateJobPost.objects.filter(candidate=candidate)
+		print("OKAYYYYYY)))))))))))")
+		context = {
+			"isLogged": True,
+			"userRole": "Candidate",
+			"appliedJob": appliedJob
+		}
+		try:
+			print("&&&&&&&&&&&&&&&&&&")
+			validation = candidatedashboard.getDashboardData(request)
+			print("OKAYYYYYYYYYYYYYYYYYY")
+			if validation.isValid:
+				print(validation.response)
+				context.update(validation.response)
+				return render(request, 'candidate/candidatedashboard.html', context)
+			messages.error(
+				request, 'Failed to fetch!'
+			)
+			return redirect('/home')
+		except:
+			messages.error(request, errormessage.INTERNAL_SERVER_ERROR)
+			return redirect('/home')
 
 @login_required(login_url="/candidate/login/")
 @decorator.allowed_users(allowed_roles=['Candidate'])

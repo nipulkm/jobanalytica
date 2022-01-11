@@ -1,0 +1,67 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/company/companydashboard.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+    
+    <div class="container" id="jobPostContainer">
+        <h2>Job post analytical result based on technology</h1>
+		<table class="table table">
+			<tr>
+				<th>Technology</th>
+				<th>Percentage</th>
+			</tr>
+			<tr>
+				<td>{{dotNet}}</td>
+				<td>{{dotNetPercentage}} %</td>
+			</tr>
+            <tr>
+				<td>{{laravel}}</td>
+				<td>{{laravelPercentage}} %</td>
+			</tr>
+            <tr>
+				<td>{{django}}</td>
+				<td>{{djangoPercentage}} %</td>
+			</tr>
+            <tr>
+				<td>{{others}}</td>
+				<td>{{othersPercentage}} %</td>
+			</tr>
+		</table>
+	</div>
+	<div class="container" id="jobPostContainer">
+        <h2>Applied Job</h1>
+		<table class="table table">
+			<tr>
+				<th>JobId</th>
+				<th>Technology</th>
+				<th>Position</th>
+				<th>Description</th>
+				<th>Experience</th>
+				<th>Salary</th>
+				<th>Deadline</th>
+			</tr>
+			{% for jobPost in appliedJob %}
+			<tr>
+				<td>{{jobPost.jobPost.id}}</td>
+				<td>{{jobPost.jobPost.technology}}</td>
+				<td>{{jobPost.jobPost.position}}</td>
+				<td id="description">{{jobPost.jobPost.description}}</td>
+				<td>{{jobPost.jobPost.experience}}</td>
+				<td>{{jobPost.jobPost.salary}}</td>
+				<td>{{jobPost.jobPost.deadline}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<br>
+{% endblock body %}

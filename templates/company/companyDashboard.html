@@ -17,6 +17,10 @@
 		<form class="" action="{% url 'jobPostCreate' %}" method="post" id="jobPostForm">
 			{% csrf_token %}
 			<div class="form-group">
+				<label for="technology"><strong>Technology</strong></label>
+				{{jobPostForm.technology}}
+			</div>
+			<div class="form-group">
 				<label for="position"><strong>Position</strong></label>
 				{{jobPostForm.position}}
 			</div>
@@ -53,6 +57,7 @@
 		<table class="table table">
 			<tr>
 				<th>JobId</th>
+				<th>Technology</th>
 				<th>Position</th>
 				<th>Description</th>
 				<th>Experience</th>
@@ -63,6 +68,7 @@
 			{% for jobPost in jobPosts %}
 			<tr>
 				<td>{{jobPost.id}}</td>
+				<td>{{jobPost.technology}}</td>
 				<td>{{jobPost.position}}</td>
 				<td id="description">{{jobPost.description}}</td>
 				<td>{{jobPost.experience}}</td>

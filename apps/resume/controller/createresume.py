@@ -19,37 +19,40 @@ def saveResume(request):
         response.update({'resume': resume})
         if formData['technology1']:
             technology1 = Technology(
-                technology=formData['technology1'],
-                experience=formData['experience1']
+                technologyCode=formData['technology1'],
+                technologyName=formData['technology1']
             )
             technology1.save()
             resumeAndTechnology1 = ResumeAndTechnology(
                 resume=resume,
-                technology=technology1
+                technology=technology1,
+                experience=formData['experience1']
             )
             resumeAndTechnology1.save()
             response.update({'technology1': technology1, 'resumeAndTechnology1': resumeAndTechnology1})
         if formData['technology2']:
             technology2 = Technology(
-                technology=formData['technology2'],
-                experience=formData['experience2']
+                technologyCode=formData['technology2'],
+                technologyName=formData['technology2']
             )
             technology2.save()
             resumeAndTechnology2 = ResumeAndTechnology(
                 resume=resume,
-                technology=technology2
+                technology=technology2,
+                experience=formData['experience2']
             )
             resumeAndTechnology2.save()
             response.update({'technology2': technology2, 'resumeAndTechnology2': resumeAndTechnology2})
         if formData['technology3']:
             technology3 = Technology(
-                technology=formData['technology3'],
-                experience=formData['experience3']
+                technologyCode=formData['technology3'],
+                technologyName=formData['technology3']
             )
             technology3.save()
             resumeAndTechnology3 = ResumeAndTechnology(
                 resume=resume,
-                technology=technology3
+                technology=technology3,
+                experience=formData['experience3']
             )
             resumeAndTechnology3.save()
             response.update({'technology3': technology3, 'resumeAndTechnology3': resumeAndTechnology3})

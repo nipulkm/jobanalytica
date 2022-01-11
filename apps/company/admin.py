@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.company.models import Company, JobPost
+from apps.company.models import Company, JobPost, CandidateJobPost
 
 class CompanyAdmin(admin.ModelAdmin):
 	list_display = [
@@ -19,6 +19,7 @@ class JobPostAdmin(admin.ModelAdmin):
 		'id',
 		'jobId',
 		'company',
+		'technology',
 		'position',
 		'experience',
 		'salary',
@@ -28,5 +29,12 @@ class JobPostAdmin(admin.ModelAdmin):
 		'isDeleted'
 	]
 
+class CandidateJobPostAdmin(admin.ModelAdmin):
+	list_display = [
+		'id',
+		'candidate',
+		'jobPost'
+	]
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(JobPost, JobPostAdmin)
+admin.site.register(CandidateJobPost, CandidateJobPostAdmin)
