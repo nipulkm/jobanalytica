@@ -14,21 +14,21 @@
 	</div>
 	<div class="container">
 		{% for jobPost in jobPosts %}
-		<div class="container" id="jobPost">
+		<div class="container" id="jobPost" style="padding: 20px;">
 			<div class="col">
 				<div class="row">
-					<div class="col">{{jobPost.technology}}</div>
-					<div class="col">{{jobPost.position}}</div>
-					<div class="col">{{jobPost.company.name}}</div>
+					<div class="col"><h6>Company Name: {{jobPost.company.name}}</h6></div>
+					<div class="col">Position: {{jobPost.position}}</div>
+					<div class="col">Technology: {{jobPost.technology}}</div>
 					<div class="col"><a href="/apply/{{jobPost.jobId}}/">Apply</a></div>
 				</div>
-				<div class="row">
+				<div class="row" style="padding: 15px;">
 					<div class="col">{{jobPost.description}}</div>
 				</div>
 				<div class="row">
-					<div class="col">{{jobPost.experience}}</div>
-					<div class="col">{{jobPost.salary}}</div>
-					<div class="col">{{jobPost.deadline}}</div>
+					<div class="col">Experience: {{jobPost.experience}}</div>
+					<div class="col">Salary: {{jobPost.salary}} BDT</div>
+					<div class="col">Deadline: {{jobPost.deadline}}</div>
 				</div>
 			</div>
 		</div>
