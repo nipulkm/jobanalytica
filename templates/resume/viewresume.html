@@ -1,0 +1,136 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/resume/viewresume.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container" id="resumeContainer">
+        <br>
+        <p><strong>Resume</strong></p>
+        <br>
+        <div>
+            <lebel>Phone: </lebel>
+            {{resume.phone}}
+        </div>
+        <br>
+        <div>
+            <lebel>Email: </lebel>
+            {{resume.email}}
+        </div>
+        <br><br>
+        {% for technology in allTechnology %}
+        <div>
+            <lebel>Technology: </lebel>
+            {{technology.technology.technologyName}}
+        </div>
+        <br>
+        <div>
+            <lebel>Experience: </lebel>
+            {{technology.experience1}}
+        </div>
+        {% endfor %}
+        <br><br>
+        <!-- <div>
+            <lebel>Technology: </lebel>
+            {{technology2.technology2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Experience: </lebel>
+            {{technology2.experience2}}
+        </div>
+        <br><br>
+        <div>
+            <lebel>Technology: </lebel>
+            {{technology3.technology3}}
+        </div>
+        <br>
+        <div>
+            <lebel>Experience: </lebel>
+            {{technology3.experience3}}
+        </div> -->
+        <br><br>
+        {% for academicRecord in allAcademicRecord %}
+        <div>
+            <lebel>Academy Type: </lebel>
+            {{academicRecord.academicRecord.academyType}}
+        </div>
+        <br>
+        <div>
+            <lebel>Subject: </lebel>
+            {{academicRecord.academicRecord.subject}}
+        </div>
+        <br>
+        <div>
+            <lebel>Institute: </lebel>
+            {{academicRecord.academicRecord.instituteName}}
+        </div>
+        <br>
+        <div>
+            <lebel>Passing Year: </lebel>
+            {{academicRecord.academicRecord.passingYear}}
+        </div>
+        <br>
+        <div>
+            <lebel>Result: </lebel>
+            {{academicRecord.academicRecord.result}}
+        </div>
+        {% endfor %}
+        <br><br>
+        <!-- <div>
+            <lebel>Academy Type: </lebel>
+            {{academyType2.academyType2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Subject: </lebel>
+            {{academyType2.subject2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Institute Name: </lebel>
+            {{academyType2.instituteName2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Passing Year: </lebel>
+            {{academyType2.passingYear2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Result: </lebel>
+            {{academyType2.result2}}
+        </div> -->
+        <br><br>
+        {% for otherSkills in allOtherSkills %}
+        <div>
+            <lebel>Others Skill Description: </lebel>
+            {{otherSkills.description}}
+        </div>
+        <br>
+        <div>
+            <lebel>Experience: </lebel>
+            {{otherSkills.experience}}
+        </div>
+        {% endfor %}
+        <br><br>
+        <!-- <div>
+            <lebel>Others Skill Description: </lebel>
+            {{otherSkills2.skillDescription2}}
+        </div>
+        <br>
+        <div>
+            <lebel>Experience: </lebel>
+            {{otherSkills2.skillExperience2}}
+        </div> -->
+        <br><br>
+    </div>
+	
+{% endblock body %}

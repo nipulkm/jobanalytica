@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from library import constants as const
-from apps.candidate.models import UserRole
+from apps.candidate.models import UserRole, Candidate
 
 class Company(models.Model):
 	id = models.BigAutoField(primary_key=True)
@@ -30,6 +30,7 @@ class JobPost(models.Model):
 	jobId = \
 		models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	company = models.ForeignKey(Company, on_delete=models.PROTECT)
+	technology = models.CharField(max_length=30)
 	position = models.CharField(max_length=const.POSITION_MAX_LENGTH)
 	experience = models.IntegerField(blank=True, null=True)
 	salary = models.IntegerField(blank=True, null=True)
@@ -40,3 +41,7 @@ class JobPost(models.Model):
 
 	def __str__(self):
 		return str(self.id) + " - " + str(self.position)
+
+class CandidateJobPost(models.Model):
+	candidate = models.ForeignKey(Candidate, on_delete=models.PROTECT)
+	jobPost = models.ForeignKey(JobPost, on_delete=models.PROTECT)

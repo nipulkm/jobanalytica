@@ -86,8 +86,9 @@ def jobPostCreate(request):
 	if request.method == 'POST':
 		form = JobPostForm()
 		context = {
-			"jobPostForm": form,
-			"userRole": "Company"
+			"isLogged": True,
+			"userRole": "Company",
+			"jobPostForm": form
 		}
 		try:
 			validation = jobpostcontroller.saveJobPost(request)

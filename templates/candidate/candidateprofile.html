@@ -1,0 +1,108 @@
+{% extends "basetemplate.html" %}
+
+{% block staticFile %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/candidate/candidateprofile.css' %}">
+{% endblock staticFile %}
+
+{% block body %}
+	<div class="container" id="errorContainer">
+		{% for message in messages %}
+			<p id="message">{{message}}</p>
+		{% endfor %}
+	</div>
+	<div class="container" id="resumeContainer">
+        <br>
+        {{isResume}}
+        <div class="form-group">
+            <button {% if isResume == False %} disabled {% endif %} onclick="location.href='/resume/edit/'" type="button" class="btn btn-success">
+                Edit Resume
+            </button>
+        </div>
+        <br>
+        <div class="form-group">
+            <button {% if isResume == True %} disabled {% endif %} onclick="location.href='/resume/create/'" type="button" class="btn btn-success">
+                Create Resume
+            </button>
+        </div>
+        <br>
+        <p><strong>Profile</strong></p>
+        <br>
+        <div>
+            <lebel>Name: </lebel>
+            {{candidate.name}}
+        </div>
+        <br>
+        <div>
+            <lebel>Birthday: </lebel>
+            {{candidate.birthdate}}
+        </div>
+        <br><div>
+            <lebel>Address: </lebel>
+            {{candidate.address}}
+        </div>
+        <br>
+        <div>
+            <lebel>Phone: </lebel>
+            {{candidate.phone}}
+        </div>
+        <br><br>
+        {% if isResume %}
+            <br>
+            <p><strong>Resume</strong></p>
+            <br>
+            {% for technology in allTechnology %}
+            <div>
+                <lebel>Technology: </lebel>
+                {{technology.technology.technologyName}}
+            </div>
+            <br>
+            <div>
+                <lebel>Experience: </lebel>
+                {{technology.experience1}}
+            </div>
+            {% endfor %}
+            <br><br>
+            {% for academicRecord in allAcademicRecord %}
+            <div>
+                <lebel>Academy Type: </lebel>
+                {{academicRecord.academicRecord.academyType}}
+            </div>
+            <br>
+            <div>
+                <lebel>Subject: </lebel>
+                {{academicRecord.academicRecord.subject}}
+            </div>
+            <br>
+            <div>
+                <lebel>Institute: </lebel>
+                {{academicRecord.academicRecord.instituteName}}
+            </div>
+            <br>
+            <div>
+                <lebel>Passing Year: </lebel>
+                {{academicRecord.academicRecord.passingYear}}
+            </div>
+            <br>
+            <div>
+                <lebel>Result: </lebel>
+                {{academicRecord.academicRecord.result}}
+            </div>
+            {% endfor %}
+            <br><br>
+            {% for otherSkills in allOtherSkills %}
+            <div>
+                <lebel>Others Skill Description: </lebel>
+                {{otherSkills.description}}
+            </div>
+            <br>
+            <div>
+                <lebel>Experience: </lebel>
+                {{otherSkills.experience}}
+            </div>
+            {% endfor %}
+            <br><br>
+        {% endif %}
+    </div>
+	
+{% endblock body %}

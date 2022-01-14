@@ -9,6 +9,7 @@ def saveJobPost(request):
 		formData = form.cleaned_data
 		jobPost = JobPost (
 			company=company,
+			technology=formData['technology'],
 			position=formData['position'],
 			experience=formData['experience'],
 			salary=formData['salary'],

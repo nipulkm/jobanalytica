@@ -15,11 +15,14 @@ class CompanyRegistrationForm(forms.Form):
 	)
 
 class JobPostForm(forms.Form):
+	technology = forms.ChoiceField(choices=([
+		('C# Dot Net', 'C# Dot Net'), 
+		('PHP Laravel', 'PHP Laravel'),
+		('Python Django', 'Python Django')
+	]))
 	position = forms.CharField(max_length=const.POSITION_MAX_LENGTH)
 	description = forms.CharField(widget=forms.Textarea)
 	experience = forms.IntegerField(required=False)
 	salary = forms.IntegerField(required=False)
 	deadline = forms.DateField(required=False)
-	# description.widget.attrs.update({
-	# 	'id': 'description'
-	# })
+	

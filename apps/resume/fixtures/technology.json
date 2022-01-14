@@ -1,0 +1,26 @@
+[
+	{
+		"model": "resume.technology",
+		"pk": 1,
+		"fields": {
+			"technologyName": "diploma",
+			"technologyCode": "Diploma"
+		}
+	},
+	{
+		"model": "resume.technology",
+		"pk": 2,
+		"fields": {
+			"technologyName": "hsc",
+			"technologyCode": "H.S.C"
+		}
+	},
+	{
+		"model": "resume.technology",
+		"pk": 3,
+		"fields": {
+			"technologyName": "bsc",
+			"technologyCode": "B.Sc"
+		}
+	}
+]
